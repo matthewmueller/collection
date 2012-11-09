@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>collection component</title>
+  <link rel="stylesheet" href="../build/build.css">
+</head>
+<body>
+  <h1>collection component</h1>
+  <script src="../build/build.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var Collection = require('collection'),
+        model = require('component-model/lib'),
+        User = model('User')
+                .attr('name')
+                .attr('age');
+
+        var matt = new User().name('matt').age(23),
+            jim  = new User().name('jim').age(42);
+
+        var users = new Collection;
+
+        users.on('add', function(model) {
+          console.log(model);
+        });
+
+        users.push(jim);
+  </script>
+</body>
+</html>

@@ -5,9 +5,12 @@
   "version": "0.0.1",
   "keywords": ["enumerable", "data", "model", "db"],
   "dependencies": {
-    "component/enumerable": "*"
+    "component/enumerable": "*",
+    "component/emitter": "*"
   },
-  "development": {},
+  "development": {
+    "component/model": "*"
+  },
   "license": "MIT",
   "scripts": [
     "index.js"
