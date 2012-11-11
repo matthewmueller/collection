@@ -65,7 +65,8 @@ Collection.prototype.length = function(){
  */
 
 Collection.prototype.pop = function() {
-  var ret = this.models.pop.apply(this, arguments);
+  var models = this.models,
+      ret = models.pop.apply(models, arguments);
   this.emit('pop', ret);
   this.emit('remove', ret);
   return ret;
@@ -80,7 +81,8 @@ Collection.prototype.pop = function() {
  */
 
 Collection.prototype.push = function() {
-  var ret = this.models.push.apply(this, arguments),
+  var models = this.models,
+      ret = models.push.apply(models, arguments),
       args = [].slice.call(arguments);
   this.emit('push', ret);
   for(var i = 0, len = args.length; i < len; i++) this.emit('add', args[i]);
@@ -94,7 +96,8 @@ Collection.prototype.push = function() {
  */
 
 Collection.prototype.reverse = function() {
-  var ret = this.models.reverse.apply(this, arguments);
+  var models = this.models,
+      ret = models.reverse.apply(models, arguments);
   this.emit('reverse', ret);
   return ret;
 };
@@ -106,7 +109,8 @@ Collection.prototype.reverse = function() {
  */
 
 Collection.prototype.shift = function() {
-  var ret = this.models.shift.apply(this, arguments);
+  var models = this.models,
+      ret = this.models.shift.apply(this, arguments);
   this.emit('shift', ret);
   this.emit('remove', ret);
   return ret;
@@ -119,7 +123,8 @@ Collection.prototype.shift = function() {
  */
 
 Collection.prototype.sort = function() {
-  var ret = this.models.sort.apply(this, arguments);
+  var models = this.models,
+      ret = models.sort.apply(models, arguments);
   this.emit('sort', ret);
   return ret;
 };
@@ -134,7 +139,8 @@ Collection.prototype.sort = function() {
  */
 
 Collection.prototype.splice = function() {
-  var ret = this.models.splice.apply(this, arguments),
+  var models = this.models,
+      ret = models.splice.apply(models, arguments),
       added = [].slice.call(arguments, 2);
   this.emit('splice', ret);
   for(var i = 0, len = ret.length; i < len; i++) this.emit('remove', ret[i]);
@@ -151,9 +157,22 @@ Collection.prototype.splice = function() {
  */
 
 Collection.prototype.unshift = function() {
-  var ret = this.models.unshift.apply(this, arguments),
+  var models = this.models,
+      ret = models.unshift.apply(models, arguments),
       args = [].slice.call(arguments);
   this.emit('unshift', ret);
   for(var i = 0, len = args.length; i < len; i++) this.emit('add', args[i]);
   return ret;
+};
+
+/**
+ * Clear a list
+ *
+ * @return {Collection}
+ */
+
+Collection.prototype.clear = function() {
+  this.models = [];
+  this.emit('clear');
+  return this;
 };
